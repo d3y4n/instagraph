@@ -1,1 +1,7 @@
-Instagram
+Instagraph - Instagram with PHP and Imagemagick
+
+- Download all files
+- Open up filter.php in your browser
+- Take a look at output.jpg
+
+Live demo: http://instagraph.me
