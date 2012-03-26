@@ -7,8 +7,12 @@
  * @copyright  NetTuts+
  * @license    http://creativecommons.org/licenses/by-nc/3.0/ CC BY-NC
  */
+<<<<<<< HEAD
 class Instagraph
 {
+=======
+class Instagraph {
+>>>>>>> 42f1aed1521e4c0188d12f89c3e632e7af84df15
     
     public $_image = NULL;
     public $_output = NULL;
@@ -16,7 +20,13 @@ class Instagraph
     private $_width = NULL;
     private $_height = NULL;
     private $_tmp = NULL;
+<<<<<<< HEAD
         
+=======
+    
+    # factory method http://en.wikipedia.org/wiki/Factory_method_pattern#PHP
+    
+>>>>>>> 42f1aed1521e4c0188d12f89c3e632e7af84df15
     public static function factory($image, $output)
     {
         return new Instagraph($image, $output);
@@ -102,6 +112,22 @@ class Instagraph
     
     /** FILTER METHODS */
 
+<<<<<<< HEAD
+=======
+    # LOMO-FI
+    public function lomo()
+    {
+        $this->tempfile();
+        
+        $command = "convert {$this->_tmp} -channel R -level 33% -channel G -level 33% $this->_tmp";
+        
+        $this->execute($command);
+        $this->vignette($this->_tmp);
+        
+        $this->output();
+    }
+
+>>>>>>> 42f1aed1521e4c0188d12f89c3e632e7af84df15
     # GOTHAM
     public function gotham()
     {
@@ -111,6 +137,7 @@ class Instagraph
         $this->output();
     }
 
+<<<<<<< HEAD
     # TOASTER
     public function toaster()
     {
@@ -125,6 +152,8 @@ class Instagraph
         $this->output();        
     }
     
+=======
+>>>>>>> 42f1aed1521e4c0188d12f89c3e632e7af84df15
     # NASHVILLE
     public function nashville()
     {
@@ -138,6 +167,7 @@ class Instagraph
         
         $this->output();
     }
+<<<<<<< HEAD
         
     # LOMO-FI
     public function lomo()
@@ -150,6 +180,21 @@ class Instagraph
         $this->vignette($this->_tmp);
         
         $this->output();
+=======
+
+    # TOASTER
+    public function toaster()
+    {
+        $this->tempfile();
+        $this->colortone($this->_tmp, '#330000', 100, 0);
+        
+        $this->execute("convert $this->_tmp -modulate 150,80,100 -gamma 1.2 -contrast -contrast $this->_tmp");
+        
+        $this->vignette($this->_tmp, 'none', 'LavenderBlush3');
+        $this->vignette($this->_tmp, '#ff9966', 'none');
+        
+        $this->output();        
+>>>>>>> 42f1aed1521e4c0188d12f89c3e632e7af84df15
     }
 
     # KELVIN
