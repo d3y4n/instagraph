@@ -4,7 +4,11 @@ require 'instagraph.php';
 
 try
 {
-$instagraph = Instagraph::factory('input.jpg', 'output.jpg');
+    $filter = $_GET['filter'];
+    if( ! in_array($filter, array('lomo', 'nashville', 'kelvin', 'toaster', 'gotham')))
+        $filter = 'nashville'; // if method not in array, default it
+    
+    $instagraph = Instagraph::factory('input.jpg', 'output.jpg');
 }
 catch (Exception $e) 
 {
@@ -12,6 +16,8 @@ catch (Exception $e)
     die;
 }
 
-$instagraph->toaster(); // name of the filter
+$instagraph->$filter(); // name of the filter from class
+
+header('Location: index.html'); // redirect to index
 
 ?>
