@@ -1,7 +1,12 @@
 Instagraph - Instagram with PHP and Imagemagick
 
 - Download all files
-- Open up filter.php in your browser
-- Take a look at output.jpg
+- Open up index.html in your browser
+- Choose a filter and click on it
+- You will see side-by-side comparison of original and newly created image
 
 Live demo: http://instagraph.me (currently not working good, Imagemagick version outdated, waiting hosting company to update)
+
+http://webarto.com
+
+dejan.marjanovic@gmail.com
