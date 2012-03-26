@@ -4,4 +4,4 @@ Instagraph - Instagram with PHP and Imagemagick
 - Open up filter.php in your browser
 - Take a look at output.jpg
 
-Live demo: http://instagraph.me
+Live demo: http://instagraph.me (currently not working good, Imagemagick version outdated, waiting hosting company to update)
