@@ -3,6 +3,7 @@
  * Instagram filters with PHP and ImageMagick
  *
  * @package    Instagraph
+ * @url        http://instagraph.me (hosted by Leftor.com)
  * @author     Webarto <dejan.marjanovic@gmail.com>
  * @copyright  NetTuts+
  * @license    http://creativecommons.org/licenses/by-nc/3.0/ CC BY-NC
@@ -55,6 +56,9 @@ class Instagraph
     {
         # remove newlines and convert single quotes to double to prevent errors
         $command = str_replace(array("\n", "'"), array('', '"'), $command);
+        # replace multiple spaces with one
+        $command = preg_replace('#(\s){2,}#is', ' ', $command);
+        # escape shell metacharacters
         $command = escapeshellcmd($command);
         # execute convert program
         exec($command);
@@ -70,7 +74,7 @@ class Instagraph
 
         $this->execute("convert 
         {$input} 
-        ( -clone 0 -fill '$color' -colorize 100% ) 
+        ( -clone 0 -fill $color -colorize 100% ) 
         ( -clone 0 -colorspace gray $negate ) 
         -compose blend -define compose:args=$args[0],$args[1] -composite 
         {$input}");
@@ -83,7 +87,7 @@ class Instagraph
 
     public function frame($input, $frame)
     {
-        $this->execute("convert $input ( '$frame' -resize {$this->_width}x{$this->_height}! -unsharp 1.5×1.0+1.5+0.02 ) -flatten $input");
+        $this->execute("convert $input ( $frame -resize {$this->_width}x{$this->_height}! -unsharp 1.5×1.0+1.5+0.02 ) -flatten $input");
     }
     
     public function vignette($input, $color_1 = 'none', $color_2 = 'black', $crop_factor = 1.5)
@@ -101,12 +105,12 @@ class Instagraph
     }
     
     /** FILTER METHODS */
-
+    
     # GOTHAM
     public function gotham()
     {
         $this->tempfile();
-        $this->execute("convert $this->_tmp -modulate 120,10,100 -fill '#222b6d' -colorize 20 -gamma 0.5 -contrast -contrast $this->_tmp");
+        $this->execute("convert $this->_tmp -modulate 120,10,100 -fill #222b6d -colorize 20 -gamma 0.5 -contrast -contrast $this->_tmp");
         $this->border($this->_tmp);
         $this->output();
     }
@@ -144,7 +148,7 @@ class Instagraph
     {
         $this->tempfile();
         
-        $command = "convert {$this->_tmp} -channel R -level 33% -channel G -level 33% $this->_tmp";
+        $command = "convert $this->_tmp -channel R -level 33% -channel G -level 33% $this->_tmp";
         
         $this->execute($command);
         $this->vignette($this->_tmp);
@@ -159,7 +163,7 @@ class Instagraph
         
         $this->execute("convert 
         ( $this->_tmp -auto-gamma -modulate 120,50,100 ) 
-        ( -size {$this->_width}x{$this->_height} -fill 'rgba(255,153,0,0.5)' -draw 'rectangle 0,0 {$this->_width},{$this->_height}' )
+        ( -size {$this->_width}x{$this->_height} -fill rgba(255,153,0,0.5) -draw 'rectangle 0,0 {$this->_width},{$this->_height}' ) 
         -compose multiply 
         $this->_tmp");
         $this->frame($this->_tmp, __FUNCTION__);

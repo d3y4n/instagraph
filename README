@@ -1,12 +1,15 @@
 Instagraph - Instagram with PHP and Imagemagick
 
+Demo: http://instagraph.me (hosted by http//leftor.ba)
+
+Instructions:
+
 - Download all files
 - Open up index.html in your browser
 - Choose a filter and click on it
-- You will see side-by-side comparison of original and newly created image
+- You will see side-by-side comparison of original (input.jpg) and newly created image (output.jpg)
+- Play & experiment
 
-Live demo: http://instagraph.me (currently not working good, Imagemagick version outdated, waiting hosting company to update)
+@todo Tilt Shift filter
 
 http://webarto.com
-
-dejan.marjanovic@gmail.com
