@@ -3,7 +3,7 @@
  * Instagram filters with PHP and ImageMagick
  *
  * @package    Instagraph
- * @url        http://instagraph.me (hosted by Leftor.com)
+ * @url        http://instagraph.me (hosted by http://leftor.com)
  * @author     Webarto <dejan.marjanovic@gmail.com>
  * @copyright  NetTuts+
  * @license    http://creativecommons.org/licenses/by-nc/3.0/ CC BY-NC
@@ -167,6 +167,20 @@ class Instagraph
         -compose multiply 
         $this->_tmp");
         $this->frame($this->_tmp, __FUNCTION__);
+
+        $this->output();
+    }
+
+    # TILT SHIFT
+    public function tilt_shift()
+    {
+        $this->tempfile();
+
+        $this->execute("convert 
+        ( $this->_tmp -gamma 0.75 -modulate 100,130 -contrast ) 
+        ( +clone -sparse-color Barycentric '0,0 black 0,%h white' -function polynomial 4,-4,1 -level 0,50% ) 
+        -compose blur -set option:compose:args 5 -composite 
+        $this->_tmp");
 
         $this->output();
     }

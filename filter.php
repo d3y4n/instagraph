@@ -5,7 +5,7 @@ require 'instagraph.php';
 try
 {
     $filter = $_GET['filter'];
-    if( ! in_array($filter, array('lomo', 'nashville', 'kelvin', 'toaster', 'gotham')))
+    if( ! in_array($filter, array('lomo', 'nashville', 'kelvin', 'toaster', 'gotham', 'tilt_shift')))
         $filter = 'nashville'; // if method not in array, default it
     
     $instagraph = Instagraph::factory('input.jpg', 'output.jpg');
