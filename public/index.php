@@ -30,7 +30,6 @@ if( ! empty($_GET['url']) AND ! empty($_GET['filter']))
 
 if (isset($_GET['__ajax']) OR isset($_SERVER['HTTP_X_REQUESTED_WITH']))
 {
-  #var_dump(__DIR__); die;
   $output = str_replace(array('\\', str_replace('\\', '/', __DIR__)), array('/', ''), $output);
   header('Location: ' . $output, TRUE, 301);
   die;
