@@ -9,9 +9,9 @@
  * @copyright  Webarto
  * @license    http://creativecommons.org/licenses/by-nc/3.0/ CC BY-NC
  */
-
 class Instagraph
 {
+
   public $_input = null;
   public $_output = null;
   public $_prefix = 'IMG';
@@ -59,6 +59,7 @@ class Instagraph
     $this->_tmp = tempnam('/tmp', 'INST');
     copy($this->_input, $this->_tmp);
   }
+  
   public function output()
   {
     # rename working temporary file to output filename

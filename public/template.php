@@ -1,104 +1,110 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta http-equiv="content-type" content="text/html" />
-	<meta name="author" content="Webarto" />
-
-	<title>Create Instagram Filters With PHP</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Webarto" />
+    <title>
+      Instagraph - Instagram with PHP and ImageMagick
+    </title>
 
 <style type="text/css">
-<!--
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans:400,700);
-@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700);
-
+@import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext);
 *{margin:0;padding:0;}
-
-a{color:#fff;}
-
-h1{font-family:Droid Serif;color:#fff !important;margin:15px 0;text-shadow:0 2px 0 #352F2A;}
-
-body{background:#F6F6E2 url(http://instagraph.me/static/gfx/paper.png);font-size:14px;font-family:'Droid Sans', Arial, Helvetica, sans-serif;}
-.wrapper{width:960px;margin:0 auto;text-align:center;}
-
-#logo{text-align:center;padding-top:50px;}
-.frame{background-color:#352F2A;border-bottom:1px solid #555555;border-radius:1em;box-shadow:0 0 40px #000000 inset;width:612px;position:relative;margin:30px auto;padding:20px;}
-#content{background:url(http://instagraph.me/static/gfx/aura.png) no-repeat top center;min-height:600px;}
-
-input[type=text]{background:#7c7264;padding:10px;font-size:2em;color:#fff;font-weight:bold;border:3px solid #514a40;border-radius:8px;}
-.upload{background:#7c7264;padding:10px;font-size:2em;color:#fff;font-weight:bold;border:3px solid #514a40;border-radius:8px;}
-
-form{text-align:center;padding:20px 0;}
-
-.button{
-    padding:10px 20px;border-radius:8px;
-    background-image:-moz-radial-gradient(center top , ellipse farthest-corner, #7c7264 0%, #514a40 100%), url(http://instagraph.me/static/gfx/noise.png);
-    background-image:-webkit-radial-gradient(center top , ellipse farthest-corner, #7c7264 0%, #514a40 100%), url(http://instagraph.me/static/gfx/noise.png);
-    font-size:2em;
-    border:1px solid #7c7264;
-    box-shadow:0 5px 0 #352F2A, 0 5px 0.5em rgba(0, 0, 0, 0.2);
-    color:#fff;
-    font-weight:bold;
-    opacity:1;cursor:pointer;
-}
-
-#footer
+body
 {
-    background:#1D5B4D;
-    border-radius: 5px 5px 5px 5px;
-    border-top: 1px solid #3E938A;
-    bottom: 0;
-    clear: both !important;
-    color: #fff;
-    height: 50px;
-    line-height: 50px;
-    margin-top: 150px;
-    position: relative;
-    text-align: center;
-    width: 100%;
-    z-index: 2;
+  color: #fff;
+  font-size: 14px;
+  font-family: Lobster, Helvetica, Arial, sans-serif;
+  background-image: url(http://themes.trendywebstar.com/Smallish/images/header-patterns/header-pattern-01.png), url(http://themes.trendywebstar.com/Smallish/images/background-patterns/body-bg-33.jpg);
+  background-repeat: repeat, repeat;
 }
-
-#nettuts{margin-top:-30px;position:absolute;}
-
-#filters img{margin:10px;box-shadow:0 0 1em #352F2A;opacity:0.8;}
-#filters img:hover{opacity:1;cursor:pointer;}
-
-#social{text-align:center;}
-
-#url {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
-    font-family: Helvetica,Arial,sans-serif;
-    font-size: 12px;
-    padding: 7px 5px;
-    width: 384px;
-}
-.field {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.06);
-    padding: 2px;
-    position: relative;
-    display:inline-block;
-}
--->
+input{padding:10px;background:rgba(255,255,255,0.1) url(http://instagraph.me/static/gfx/paper.png) repeat;min-width:480px;border:0;font-family: Lobster, Helvetica, Arial, sans-serif;color:#fff;font-size:1.5em;border:3px solid #4b1805;border-radius:8px;}
+h1,h2,h3{text-shadow: 0 0 10px #000;margin: 10px 0;}
+.wrapper{margin:0 auto; width:960px;}
+.dark-shadow{box-shadow: 0 0 20px #000;}
+#filters img{margin:10px;cursor:pointer;}
+.center{text-align:center;}
+#content, #footer{margin:20px 0;}
+a{color:#fff;text-shadow: 0 0 10px #fff;text-decoration:none;}
 </style>
 
-</head>
-<body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+      
+    </script>
+  </head>
+  
+  <body>
+    <div class="wrapper">
+      <div id="content" class="center">
+        <form action="" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="filter" value="" />
+          <h1>
+            1. Enter Image URL
+          </h1>
+          <input type="text" name="url" value="https://pbs.twimg.com/media/A8S4f4PCQAA-BT2.jpg" class="dark-shadow" />
+          <h1>
+            2. Select Filter (click &amp; wait)
+          </h1>
+          <div id="filters">
+            <img data-filter="lomo" alt="" src="/static/gfx/lomo.png" />
+            <img data-filter="nashville" alt="" src="/static/gfx/nashville.png" />
+            <img data-filter="kelvin" alt="" src="/static/gfx/kelvin.png" />
+            <img data-filter="toaster" alt="" src="/static/gfx/toaster.png" />
+            <img data-filter="gotham" alt="" src="/static/gfx/gotham.png" />
+            <img data-filter="tiltshift" alt="" src="/static/gfx/tilt_shift.png" />
+          </div>
+          <h1>
+            3. Result
+          </h1>
+          <div>
+            <img class="dark-shadow" id="result" alt="" src="" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="footer" class="center">
+      <div class="wrapper">
+        <h2>
+          Created by
+          <a href="http://webarto.com">&#9733;Webarto</a>
+        </h2>
+      </div>
+    </div>
+    <script type="text/javascript">
+      
+      $('#filters img').addClass('dark-shadow');
+      
+      $('#filters img').click(function(e) {
+        e.preventDefault();
+        $(this).css('opacity', 1);
+        
+        var url = $('input[name=url]').val();
+        
+        if ( ! url)
+        {
+          alert('URL is missing!');
+          return;
+        }
+        
+        var filter = $(this).data('filter');
+        $('input[name=filter]').val(filter);
+        
+        $('#result').attr('src', '/index.php?__ajax=1&url=' + url + '&filter=' + filter);
+        
+      });
 
-<div class="wrapper">
+      $('#filters img').each(function(index) {
+        var rand = Math.floor(Math.random() * 15);
+        if (index % 2 == 0) rand *= -1;
+        $(this).css('-moz-transform', 'rotate(' + rand + 'deg)');
+        $(this).css('-webkit-transform', 'rotate(' + rand + 'deg)');
+        $(this).css('transform', 'rotate(' + rand + 'deg)');
+      });
 
-<div>
-<img alt="" src="http://instagraph.me/static/gfx/instagraph.png" />
-</div>
-
-<div class="field">
-<input id="url" name="url" value="" />
-</div>
-
-<br />
-<img alt="" src="<?=$output?>"/>
-
-</div>
-
-</body>
+      $('input[type=file]').addClass('upload');
+    
+    </script>
+  </body>
 </html>

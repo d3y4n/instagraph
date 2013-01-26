@@ -1,12 +1,14 @@
 <?php
 
+require '../bootstrap.php';
+
 $output = NULL;
 
 if( ! empty($_GET['url']) AND ! empty($_GET['filter']))
 {
   
-  $filename = basename($_GET['url']);
-  $filepath = 'public/images/input/' . $filename . '.jpg';
+  $filename = sha1( basename($_GET['url']) );
+  $filepath = ROOT . 'public/images/input/' . $filename . '.jpg';
   
   if( ! file_exists($filepath))
   {
@@ -17,8 +19,8 @@ if( ! empty($_GET['url']) AND ! empty($_GET['filter']))
     }
   }
 
-  $output = 'public/images/output/' . $filename . '.jpg';
-  
+  $output = ROOT . 'public/images/output/' . $filename . '.jpg';
+
   $instagraph = new Instagraph;
   $instagraph->setInput($filepath);
   $instagraph->setOutput($output);
@@ -26,9 +28,11 @@ if( ! empty($_GET['url']) AND ! empty($_GET['filter']))
 
 }
 
-if(isset($_GET['__ajax']))
+if (isset($_GET['__ajax']) OR isset($_SERVER['HTTP_X_REQUESTED_WITH']))
 {
-  echo $output;
+  #var_dump(__DIR__); die;
+  $output = str_replace(array('\\', str_replace('\\', '/', __DIR__)), array('/', ''), $output);
+  header('Location: ' . $output, TRUE, 301);
   die;
 }
 
