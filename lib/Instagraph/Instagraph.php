@@ -18,7 +18,7 @@ class Instagraph
   private $_width = null;
   private $_height = null;
   private $_tmp = null;
-  
+
   public function setInput($path)
   {
     if (file_exists($path))
@@ -33,13 +33,13 @@ class Instagraph
     }
     return false;
   }
-  
+
   public function setOutput($path)
   {
     $this->_output = $path;
     return true;
   }
-  
+
   public function process($filter)
   {
     $method = 'filter' . $filter;
@@ -52,20 +52,20 @@ class Instagraph
     }
     return false;
   }
-  
+
   public function tempfile()
   {
     # copy original file and assign temporary name
     $this->_tmp = tempnam('/tmp', 'INST');
     copy($this->_input, $this->_tmp);
   }
-  
+
   public function output()
   {
     # rename working temporary file to output filename
     copy($this->_tmp, $this->_output);
   }
-  
+
   public function execute($command)
   {
     # remove newlines and convert single quotes to double to prevent errors
@@ -77,7 +77,7 @@ class Instagraph
     # execute convert program
     return shell_exec($command);
   }
-  
+
   /** ACTIONS */
 
   public function resize($w, $h)
@@ -90,38 +90,38 @@ class Instagraph
     $args[0] = $level;
     $args[1] = 100 - $level;
     $negate = $type == 0 ? '-negate' : '';
-    $this->execute("convert 
-        {$this->_tmp} 
-        ( -clone 0 -fill $color -colorize 100% ) 
-        ( -clone 0 -colorspace gray $negate ) 
-        -compose blend -define compose:args=$args[0],$args[1] -composite 
+    $this->execute("convert
+        {$this->_tmp} -set colorspace RGB
+        ( -clone 0 -fill $color -colorize 100% )
+        ( -clone 0 -colorspace gray $negate )
+        -compose blend -define compose:args=$args[0],$args[1] -composite
         {$this->_tmp}");
   }
-  
+
   public function border($color = 'black', $width = 20)
   {
     $this->execute("convert $this->_tmp -bordercolor $color -border {$width}x{$width} $this->_tmp");
   }
-  
+
   public function frame($frame)
   {
     $frame = dirname(realpath(__FILE__)) . '/' . $frame;
     $this->execute("convert $this->_tmp ( $frame -resize {$this->_width}x{$this->_height}! -unsharp 1.5×1.0+1.5+0.02 ) -flatten $this->_tmp");
   }
-  
+
   public function vignette($color_1 = 'none', $color_2 = 'black', $crop_factor = 1.5)
   {
     $crop_x = floor($this->_width * $crop_factor);
     $crop_y = floor($this->_height * $crop_factor);
-    $this->execute("convert 
-        ( {$this->_tmp} ) 
-        ( -size {$crop_x}x{$crop_y} 
-        radial-gradient:$color_1-$color_2 
+    $this->execute("convert
+        ( {$this->_tmp} )
+        ( -size {$crop_x}x{$crop_y}
+        radial-gradient:$color_1-$color_2
         -gravity center -crop {$this->_width}x{$this->_height}+0+0 +repage )
-        -compose multiply -flatten 
+        -compose multiply -flatten
         {$this->_tmp}");
   }
-  
+
   /** FILTER METHODS */
 
   public function filterGotham()
@@ -155,20 +155,20 @@ class Instagraph
 
   public function filterKelvin()
   {
-    $this->execute("convert 
-        ( $this->_tmp -auto-gamma -modulate 120,50,100 ) 
-        ( -size {$this->_width}x{$this->_height} -fill rgba(255,153,0,0.5) -draw 'rectangle 0,0 {$this->_width},{$this->_height}' ) 
-        -compose multiply 
+    $this->execute("convert
+        ( $this->_tmp -auto-gamma -modulate 120,50,100 )
+        ( -size {$this->_width}x{$this->_height} -fill rgba(255,153,0,0.5) -draw 'rectangle 0,0 {$this->_width},{$this->_height}' )
+        -compose multiply
         $this->_tmp");
     $this->frame('Assets/Frames/Kelvin');
   }
 
   public function filterTiltShift()
   {
-    $this->execute("convert 
-        ( $this->_tmp -gamma 0.75 -modulate 100,130 -contrast ) 
-        ( +clone -sparse-color Barycentric '0,0 black 0,%h white' -function polynomial 4,-4,1 -level 0,50% ) 
-        -compose blur -set option:compose:args 5 -composite 
+    $this->execute("convert
+        ( $this->_tmp -gamma 0.75 -modulate 100,130 -contrast )
+        ( +clone -sparse-color Barycentric '0,0 black 0,%h white' -function polynomial 4,-4,1 -level 0,50% )
+        -compose blur -set option:compose:args 5 -composite
         $this->_tmp");
   }
 
