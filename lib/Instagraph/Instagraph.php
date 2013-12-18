@@ -150,7 +150,7 @@ class Instagraph
   {
     $command = "convert $this->_tmp -channel R -level 33% -channel G -level 33% $this->_tmp";
     $this->execute($command);
-    $this->vignette();
+   $this->vignette('white','black',1.2);
   }
 
   public function filterKelvin()
