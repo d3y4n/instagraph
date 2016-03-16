@@ -48,3 +48,6 @@ a {
     text-shadow: 0 0 10px #fff;
     text-decoration:none;
 }
+#processingMessage, #resultMessage {
+    display: none;
+}

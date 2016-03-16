@@ -8,7 +8,7 @@ if( ! empty($_GET['url']) AND ! empty($_GET['filter'])) {
 
     if( ! file_exists($filepath)) {
         $retval = file_put_contents($filepath, file_get_contents($_GET['url']));
-        if($retval == false) {
+        if($retval === false) {
             die('Unable to fetch image from given URL. Aborting.');
         }
     }
@@ -22,7 +22,7 @@ if( ! empty($_GET['url']) AND ! empty($_GET['filter'])) {
 }
 
 if (isset($_GET['__ajax']) OR isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    $output = str_replace(array('\\', str_replace('\\', '/', __DIR__)), array('/', ''), $output);
+    $output = '/images/output/'.basename($output);
     header('Location: ' . $output, TRUE, 301);
     die;
 }

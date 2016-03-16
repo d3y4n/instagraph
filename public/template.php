@@ -28,7 +28,8 @@
             <img data-filter="tiltshift" alt="" src="/static/gfx/tilt_shift.png" />
           </div>
           <h1>
-            3. Result
+            <span id="processingMessage">Processing...</span>
+            <span id="resultMessage">3. Result</span>
           </h1>
           <div>
             <img class="dark-shadow" id="result" alt="" src="" />
