@@ -6,8 +6,6 @@
     <title>Instagraph - Instagram with PHP and ImageMagick</title>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="/js/main.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -46,5 +44,7 @@
         </h2>
       </div>
     </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
   </body>
   </html>
