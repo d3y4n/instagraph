@@ -23,6 +23,18 @@ $instagraph->process('toaster');
 
 ## Demo
 
+##### Running locally
+
+Just run:
+
+    php -S 0.0.0.0:3000 -t public
+
+and point your browser to:
+
+    http://localhost:3000
+
+##### Running remotely
+
 Demo application is included, it looks like:
 
 ![Demo](http://i.imgur.com/cEWW6gw.jpg)
