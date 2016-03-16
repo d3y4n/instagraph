@@ -16,6 +16,7 @@ $('#filters img').click(function(e) {
         $(this).css('opacity', 0.66);
     });
 
+    $('#result').attr('src', '');
     $('#result').hide();
     $('#resultMessage').hide();
     $('#processingMessage').show();
